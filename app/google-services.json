@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042516080450",
+    "project_id": "bibkiproject",
+    "storage_bucket": "bibkiproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042516080450:android:11609b5ed36e7fbfc57adb",
+        "android_client_info": {
+          "package_name": "bib.bibigon.bibki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJMMkGpw5VmabilM5uRiDdl93Tx_nsRNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
