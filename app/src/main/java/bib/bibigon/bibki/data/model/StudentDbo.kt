@@ -1,7 +1,5 @@
 package bib.bibigon.bibki.data.model
 
-import java.util.UUID
-
 data class StudentDbo(
     val id: Long = 0,
     val firstName: String = "",

@@ -15,20 +15,27 @@ import bib.bibigon.bibki.presentation.ui.screens.StudentListScreen
 private const val STUDENT_DETAIL_ID_KEY = "studentId"
 
 @Composable
-fun AppNavigation(startDestination: String = Screen.StudentList.route) {
+fun AppNavigation(modifier: Modifier = Modifier, startDestination: String = Screen.StudentList.route) {
     val navController = rememberNavController()
     val actions = remember(navController) { AppActions(navController) }
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Screen.StudentList.route) {
-            StudentListScreen(selectedStudent = actions.selectedStudent, onAddStudent = actions.navigateUp)
+            StudentListScreen(
+                modifier = modifier,
+                selectedStudent = actions.selectedStudent,
+                onAddStudent = {         navController.navigate("${Screen.StudentDetails.route}/-1") })
         }
-        composable("${Screen.StudentDetails}/$STUDENT_DETAIL_ID_KEY}", arguments = listOf(
-            navArgument(STUDENT_DETAIL_ID_KEY) { type = NavType.LongType }
+        composable(Screen.StudentDetails.route + "/{$STUDENT_DETAIL_ID_KEY}", arguments = listOf(
+            navArgument(STUDENT_DETAIL_ID_KEY) {
+                type = NavType.LongType
+                defaultValue = -1
+            }
         )) { navBackStackEntry ->
             val arguments = requireNotNull(navBackStackEntry.arguments)
 
             StudentDetailsScreen(
+                modifier = modifier,
                 studentId = arguments.getLong(STUDENT_DETAIL_ID_KEY),
                 navigateUp = actions.navigateUp
             )

@@ -1,9 +1,13 @@
 package bib.bibigon.bibki.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import bib.bibigon.bibki.data.StudentRepositoryImplementation
+import bib.bibigon.bibki.data.database.StudentFirebase
 import bib.bibigon.bibki.domain.model.Student
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -36,6 +40,23 @@ class MainViewModel(
         }
     }
 
-    suspend fun getStudent(studentId: Long) = repositoryImplementation.getStudent(studentId)
+    fun getStudent(studentId: Long) = viewModelScope.async {
+        repositoryImplementation.getStudent(studentId)
+    }
+
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                return MainViewModel(
+                    repositoryImplementation = StudentRepositoryImplementation(StudentFirebase())
+                ) as T
+            }
+        }
+    }
 }
 

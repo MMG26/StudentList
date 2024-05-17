@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">bibki</string>
+    <string name="last_name_text">Фамилия</string>
+    <string name="first_name_text">Имя</string>
+    <string name="date_of_birth_text">Дата рождения</string>
+    <string name="departament_text">Факультет</string>
+    <string name="group_text">Группа</string>
+    <string name="add_student_text_button">Добавить</string>
+    <string name="edit_student_text_button">Изменить</string>
 </resources>

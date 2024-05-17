@@ -45,7 +45,9 @@ class StudentRepositoryImplementation(
         }
     }
 
-    override suspend fun getStudent(studentId: Long): RequestResult<Student> {
-        return database.getStudent(studentId).toRequestResult().map { it.toStudent() }
-    }
+    override suspend fun getStudent(studentId: Long) =
+        database.getStudent(studentId).toRequestResult()
+            .map {
+                it.toStudent()
+            }
 }
