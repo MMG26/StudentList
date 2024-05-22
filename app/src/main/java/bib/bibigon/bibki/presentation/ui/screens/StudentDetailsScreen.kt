@@ -1,17 +1,21 @@
 package bib.bibigon.bibki.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
@@ -50,7 +54,7 @@ fun StudentDetailsScreen(
     if (studentId > 0) {
         when (val student = studentResult) {
             is RequestResult.Error -> Snackbar { Text(text = "Error occurred: ${student.error}") }
-            is RequestResult.Loading -> Snackbar { Text(text = "Loading") }
+            is RequestResult.Loading -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator(modifier = Modifier.size(60.dp))}
             is RequestResult.Success -> EditStudent(
                 modifier = modifier,
                 student = student.data,
@@ -77,7 +81,9 @@ fun AddStudent(
     var group by remember { mutableStateOf("") }
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -119,9 +125,9 @@ fun AddStudent(
 
         Button(
             modifier = Modifier
-                .fillMaxWidth()
+                .wrapContentWidth()
                 .height(52.dp)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             enabled = !(firstName.isBlank() || lastName.isBlank() || dateOfBirth.isBlank() || department.isBlank() || group.isBlank()),
             onClick = {
                 onAddStudent(
@@ -155,7 +161,9 @@ fun EditStudent(
     var group by remember { mutableStateOf(student.group) }
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -198,9 +206,9 @@ fun EditStudent(
 
         Button(
             modifier = Modifier
-                .fillMaxWidth()
+                .wrapContentWidth()
                 .height(52.dp)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             enabled = !(firstName.isBlank() || lastName.isBlank() || dateOfBirth.isBlank() || department.isBlank() || group.isBlank()),
             onClick = {
                 onEditStudent(
